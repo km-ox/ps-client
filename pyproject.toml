@@ -1,0 +1,22 @@
+[project]
+name = "ps-client"
+version = "0.1.0"
+description = "client to read configuration from AWS Parameter Store"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "boto3>=1.42.36",
+]
+authors = [
+    { name = "Krishnan M", email = "krishnan.mani@ashmus.ox.ac.uk" }
+]
+keywords = ["AWS", "parameter-store", "config", "secrets"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Typing :: Typed",
+]
+
+[build-system]
+requires = ["uv_build>=0.9.27,<0.10.0"]
+build-backend = "uv_build"
