@@ -10,4 +10,8 @@ class ConfigClient:
 
 
     def get(self, key: str) -> str:
-        return self.client.get_parameter(Name=f"/{self.environment}/{self.service}/{key}")['Parameter']['Value']
+        try:
+            response = self.client.get_parameter(Name=f"/{self.environment}/{self.service}/{key}")
+            return response['Parameter']['Value']
+        except self.client.exceptions.ParameterNotFound as e:
+            raise KeyError(e) from e
