@@ -19,7 +19,14 @@ class ConfigClient:
 
     def _get_parameter(self, key: str, decrypt: bool = False) -> str:
         try:
-            response = self.client.get_parameter(Name=f"/{self.environment}/{self.service}/{key}", WithDecryption=decrypt)
+            response = self.client.get_parameter(
+                Name=f"/{self.environment}/{self.service}/{key}",
+                WithDecryption=decrypt
+            )
+            parameter_type = response['Parameter']['Type']
+            if not decrypt and parameter_type == 'SecureString':
+                raise ValueError(f"warning: [{key}] is encrypted.")
+
             return response['Parameter']['Value']
         except self.client.exceptions.ParameterNotFound as e:
             raise KeyError(e) from e

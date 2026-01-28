@@ -1,0 +1,9 @@
+- [ ] logging
+- [ ] formatting
+- [ ] pre-commit hook
+- [ ] standardise build
+- [ ] scan
+- [ ] PR configuration
+- [ ] releases
+- [ ] licensing
+- [ ] badges

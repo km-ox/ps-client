@@ -1,7 +1,7 @@
 # ps-client
 
 Minimal client to read configuration from AWS Parameter Store.
-A key motivation for this library is to standardise on the use of configuration across services.
+A key motivation for this library is to standardise on storage and use of configuration across services, following a simple scheme.
 
 ### Usage
 
@@ -18,11 +18,20 @@ $ uv add ps-client
 
 ```python
 # example.py
-
 from ps_client import ConfigClient
-
 client = ConfigClient(environment='test', service='service', region='us-east-1')
+
+# get a cleartext value
 foo = client.get('foo')
+
+# get a secret value
+secret = client.get_secret('bar')
 ```
 
-- A `KeyError` will be raised if the key is not found. The library does not introduce new error types.
+- The library does not introduce new error types.
+- A `KeyError` will be raised for missing keys. 
+- (In a departure from the underlying AWS `get-parameter` API) the library raises a `ValueError` when an attempt is made with `get` to read an encrypted value.
+
+### Known limitations
+
+- The underlying AWS API does throttle requests when reading many values within a short period of time.
