@@ -5,4 +5,4 @@ def hello() -> str:
 from .client import ConfigClient
 
 __all__ = ["ConfigClient"]
-__version__ = "0.1.0"
+__version__ = "0.2.0"

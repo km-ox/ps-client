@@ -13,7 +13,6 @@ A key motivation for this library is to standardise on storage and use of config
 
 ```shell
 $ uv add git+https://github.com/km-ox/ps-client --tag foo
-$ uv add ps-client
 ```
 
 ```python
