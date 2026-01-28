@@ -10,8 +10,16 @@ class ConfigClient:
 
 
     def get(self, key: str) -> str:
+        return self._get_parameter(key)
+
+
+    def get_secret(self, key: str) -> str:
+        return self._get_parameter(key, decrypt=True)
+
+
+    def _get_parameter(self, key: str, decrypt: bool = False) -> str:
         try:
-            response = self.client.get_parameter(Name=f"/{self.environment}/{self.service}/{key}")
+            response = self.client.get_parameter(Name=f"/{self.environment}/{self.service}/{key}", WithDecryption=decrypt)
             return response['Parameter']['Value']
         except self.client.exceptions.ParameterNotFound as e:
             raise KeyError(e) from e
