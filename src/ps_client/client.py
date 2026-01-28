@@ -8,14 +8,11 @@ class ConfigClient:
         self.service = service
         self.client = boto3.client('ssm', region_name=region)
 
-
     def get(self, key: str) -> str:
         return self._get_parameter(key)
 
-
     def get_secret(self, key: str) -> str:
         return self._get_parameter(key, decrypt=True)
-
 
     def _get_parameter(self, key: str, decrypt: bool = False) -> str:
         try:
