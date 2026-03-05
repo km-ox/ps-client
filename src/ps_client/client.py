@@ -2,7 +2,7 @@ import boto3
 
 
 class ConfigClient:
-    def __init__(self, region: str, environment: str | None, service: str | None):
+    def __init__(self, region: str, environment: str, service: str | None = None):
         self.environment = environment
         self.service = service
         self.client = boto3.client("ssm", region_name=region)
