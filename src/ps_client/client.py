@@ -8,16 +8,19 @@ class ConfigClient:
         self.service = service
         self.client = boto3.client('ssm', region_name=region)
 
-    def get(self, key: str) -> str:
-        return self._get_parameter(key)
+    def get(self, key: str, environment: str | None = None, service: str | None = None) -> str:
+        return self._get_parameter(key, environment, service)
 
-    def get_secret(self, key: str) -> str:
-        return self._get_parameter(key, decrypt=True)
+    def get_secret(self, key: str, environment: str | None = None, service: str | None = None) -> str:
+        return self._get_parameter(key, environment, service, decrypt=True)
 
-    def _get_parameter(self, key: str, decrypt: bool = False) -> str:
+    def _get_parameter(self, key: str, environment: str | None = None, service: str | None = None, decrypt: bool = False) -> str:
+        _environment = environment or self.environment
+        _service = service or self.service
+        _key = get_key(key, _environment, _service)
         try:
             response = self.client.get_parameter(
-                Name=f"/{self.environment}/{self.service}/{key}",
+                Name=_key,
                 WithDecryption=decrypt
             )
             parameter_type = response['Parameter']['Type']
@@ -27,3 +30,7 @@ class ConfigClient:
             return response['Parameter']['Value']
         except self.client.exceptions.ParameterNotFound as e:
             raise KeyError(e) from e
+
+
+def get_key(key: str, environment: str , service: str):
+    return f"/{environment}/{service}/{key}"
