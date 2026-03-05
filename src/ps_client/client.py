@@ -2,7 +2,7 @@ import boto3
 
 
 class ConfigClient:
-    def __init__(self, environment: str, service: str, region: str):
+    def __init__(self, region: str, environment: str | None, service: str | None):
         self.environment = environment
         self.service = service
         self.client = boto3.client("ssm", region_name=region)
@@ -39,4 +39,8 @@ class ConfigClient:
 
 
 def get_key(key: str, environment: str, service: str):
+    if environment is None:
+        raise ValueError("environment is required.")
+    if service is None:
+        raise ValueError("service is required.")
     return f"/{environment}/{service}/{key}"
