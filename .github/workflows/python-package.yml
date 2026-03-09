@@ -76,3 +76,13 @@ jobs:
 
       - name: Build wheel & sdist using uv
         run: uv build
+
+      - name: Create or update GitHub Release and upload artifacts
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dist/*.whl
+            dist/*.tar.gz
+          make_latest: true      # THIS auto-creates the release if missing
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
