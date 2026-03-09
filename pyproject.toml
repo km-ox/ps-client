@@ -1,6 +1,6 @@
 [project]
 name = "ps-client"
-version = "0.6.1"
+version = "0.6.2"
 description = "client to read configuration from AWS Parameter Store"
 readme = "README.md"
 requires-python = ">=3.13"
@@ -18,8 +18,11 @@ classifiers = [
 ]
 
 [build-system]
-requires = ["setuptools>=61", "wheel"]
+requires = ["setuptools>=69", "wheel"]
 build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
 
 [dependency-groups]
 dev = [
@@ -30,7 +33,7 @@ dev = [
 ]
 
 [tool.setuptools.packages.find]
-where = ["."]
+where = ["src"]
 include = ["ps_client*"]
 
 [tool.pytest.ini_options]
