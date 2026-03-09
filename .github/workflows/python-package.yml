@@ -61,11 +61,11 @@ jobs:
 
           # Extract version from pyproject.toml using Python's tomllib
           PROJECT_VERSION=$(python - <<'EOF'
-import tomllib
-with open("pyproject.toml", "rb") as f:
-    print(tomllib.load(f)["project"]["version"])
-EOF
-)
+          import tomllib
+          with open("pyproject.toml", "rb") as f:
+              print(tomllib.load(f)["project"]["version"])
+          EOF
+          )
 
           if [[ "v${PROJECT_VERSION}" != "${TAG}" ]]; then
             echo "❌ Tag ${TAG} does not match project version v${PROJECT_VERSION}"
@@ -76,4 +76,3 @@ EOF
 
       - name: Build wheel & sdist using uv
         run: uv build
-
