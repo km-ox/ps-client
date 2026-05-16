@@ -12,7 +12,7 @@ Key motivation is to standardise on how configuration is consumed by services, f
 - We presume credentials are made available using one of the [standard AWS credential mechanisms](https://boto3.amazonaws.com/v1/documentation/api/1.18.54/guide/credentials.html#:~:text=The%20mechanism%20in%20which%20Boto3,client()%20method).
 - We follow this convention for keys in parameter store: `/<environment>/<service>/<key>`
   - For example, `/test/service/foo` is the key for the `foo` configuration value for `service`, in the `test` environment.
-- We follow this convention for secrets in parameter store: `/<environment>/<key>`
+- We follow this convention for secrets in secrets manager: `/<environment>/<key>`
 
 ```shell
 $ uv add git+https://github.com/km-ox/ps-client
