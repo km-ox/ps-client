@@ -24,6 +24,7 @@ dependencies = [
     { name = "botocore-stubs" },
     { name = "types-s3transfer" },
 ]
+sdist = { url = "https://files.pythonhosted.org/packages/35/21/c81de9b74be84e7a1f35998adae6e0560862da00328cf6375dfaacb9737d/boto3_stubs-1.43.9.tar.gz", hash = "sha256:afb9de061aa5667ca3247c47057fc792bf03b4c483da1659697c32317e1d2efa", size = 102691, upload-time = "2026-05-15T20:09:55.809Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/d5/ad/bfd434b0e4f16169efd174e3e8a000fd04f35c1baf683e343b0c2b778380/boto3_stubs-1.43.9-py3-none-any.whl", hash = "sha256:d046be3b956f494134e0c59af630b327319c9eb72fae4032e586e8057b986010", size = 70652, upload-time = "2026-05-15T20:09:50.647Z" },
 ]
@@ -349,7 +350,7 @@ wheels = [
 
 [[package]]
 name = "ps-client"
-version = "0.8.0"
+version = "0.9.1"
 source = { editable = "." }
 dependencies = [
     { name = "boto3" },
