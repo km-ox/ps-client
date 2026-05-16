@@ -40,7 +40,7 @@ def test_wrong_region():
 def test_get_sm_secret():
     aws_client = boto3.client("secretsmanager", region_name="us-east-1")
     environment = "test"
-    aws_client.create_secret(Name=f"/{environment}/foo", SecretString="bar")
+    aws_client.create_secret(Name=f"/{environment}/foo", SecretString='{"foo":"bar"}')
     client = ConfigClient(region="us-east-1", environment=environment, service=None)
     assert client.get_sm_secret("foo") == "bar"
 
@@ -49,6 +49,16 @@ def test_get_sm_secret_missing_secret():
     client = ConfigClient(region="us-east-1", environment="test", service=None)
     with pytest.raises(KeyError, match=".*no-such-secret not found."):
         client.get_sm_secret("no-such-secret") is None
+
+
+@mock_aws
+def test_get_sm_secret_missing_secret_key():
+    aws_client = boto3.client("secretsmanager", region_name="us-east-1")
+    environment = "test"
+    aws_client.create_secret(Name=f"/{environment}/foo", SecretString='{"wrong-key":"bar"}')
+    client = ConfigClient(region="us-east-1", environment=environment, service=None)
+    with pytest.raises(KeyError, match="foo"):
+        client.get_sm_secret("foo")
 
 
 @mock_aws

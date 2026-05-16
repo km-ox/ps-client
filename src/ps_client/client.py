@@ -1,4 +1,5 @@
 import boto3
+import json
 
 
 class ConfigClient:
@@ -15,7 +16,9 @@ class ConfigClient:
         try:
             secret_arn = self.secretsmanager_client.describe_secret(SecretId=f"/{self.environment}/{key}")["ARN"]
             if secret_arn is not None:
-                return self.secretsmanager_client.get_secret_value(SecretId=secret_arn)["SecretString"]
+                secret_map_string = self.secretsmanager_client.get_secret_value(SecretId=secret_arn)["SecretString"]
+                secret_map = json.loads(secret_map_string)
+                return secret_map[key]
         except self.secretsmanager_client.exceptions.ResourceNotFoundException:
             raise KeyError(f"/{self.environment}/{key} not found.") from None
 

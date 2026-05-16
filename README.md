@@ -13,6 +13,7 @@ Key motivation is to standardise on how configuration is consumed by services, f
 - We follow this convention for keys in parameter store: `/<environment>/<service>/<key>`
   - For example, `/test/service/foo` is the key for the `foo` configuration value for `service`, in the `test` environment.
 - We follow this convention for secrets in secrets manager: `/<environment>/<key>`
+  - Note that secrets manager requires the secret to be stored as a "document" such as '{"key":"secret"}'  
 
 ```shell
 $ uv add git+https://github.com/km-ox/ps-client
